@@ -47,14 +47,35 @@ class ViewController: UIViewController {
 
     // １枚目のメッセージビューの設定
     func setFirstView() {
-        firstView.configureContent(title: nil, body: "iettyから物件提案をお届けします。\n物件をタップすると、お部屋の詳細を見ることができます。", iconImage: imgTutorial1, iconText: "いらっしゃいませ！", buttonImage: nil, buttonTitle: "つぎへ") { (button) in
+        firstView.configureContent(title: nil, body: nil, iconImage: imgTutorial1, iconText: "いらっしゃいませ！", buttonImage: nil, buttonTitle: "つぎへ") { (button) in
             SwiftMessages.hide()
         }
         
+        (firstView.backgroundView as? CornerRoundingView)?.cornerRadius = 4
+        
         firstView.iconLabel?.font = UIFont(name: "HiraginoSans-W3", size: 18)
+        
+        firstView.iconImageView?.contentMode = .scaleAspectFit
+        
+        firstView.bodyLabel?.widthAnchor.constraint(equalToConstant: 248).isActive = true
         firstView.bodyLabel?.font = UIFont(name: "HiraginoSans-W3", size: 13)
         firstView.bodyLabel?.textAlignment = NSTextAlignment.left
         firstView.bodyLabel?.textColor = UIColor(red: 129/255, green: 129/255, blue: 129/255, alpha: 1)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 7
+        let attributes = [NSAttributedString.Key.paragraphStyle: paragraphStyle,]
+        let attributedText = NSAttributedString(
+            string: "iettyから物件提案をお届けします。\n物件をタップすると、お部屋の詳細を見ることができます。",
+            attributes: attributes as [NSAttributedString.Key : Any]
+        )
+        firstView.bodyLabel?.attributedText = attributedText
+        
+        firstView.button?.widthAnchor.constraint(equalToConstant: 248).isActive = true
+        firstView.button?.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        firstView.button?.titleLabel?.font = UIFont(name: "HiraginoSans-W6", size: 14)
+        firstView.button?.backgroundColor = UIColor(red: 255/255, green: 152/255, blue: 0/255, alpha: 1)
+        firstView.button?.setTitleColor(.white, for: .normal)
+        firstView.button?.layer.cornerRadius = 4
     }
     
     // 2枚目のメッセージビューの設定
